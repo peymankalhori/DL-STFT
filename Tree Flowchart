@@ -1,0 +1,44 @@
+
+Voice Command Classifier (End-to-End Audio Classification System)
+│
+├── 1. Environment & Dependency Setup
+│ └── Import core libraries (TensorFlow, Keras, NumPy, Matplotlib, IPython.display, PyAudio)
+│
+├── 2. Dataset Acquisition & Preprocessing
+│ ├── 2.1. Download and extract voice dataset from remote URL
+│ ├── 2.2. Clean label names (remove metadata: README.md, .DS_Store, archive files)
+│ ├── 2.3. Load audio samples from directory structure into tf.data.Dataset
+│ ├── 2.4. Split data: 80% train / 20% test → further split test into validation & final test
+│ └── 2.5. Preprocess waveforms: squeeze redundant dimensions for consistent tensor shape
+│
+├── 3. Exploratory Data Analysis (EDA)
+│ ├── 3.1. Visualize raw audio waveforms
+│ ├── 3.2. Inspect data shapes and label distributions
+│ └── 3.3. Play audio samples for qualitative validation
+│
+├── 4. Feature Engineering: Spectrogram Conversion
+│ ├── 4.1. Implement STFT-based spectrogram transformation (log-magnitude + channel dimension)
+│ ├── 4.2. Visually compare waveform vs. spectrogram for intuitive understanding
+│ ├── 4.3. Apply transformation across all datasets (train/val/test)
+│ └── 4.4. Optimize data pipeline: cache(), shuffle(), prefetch() for training efficiency
+│
+├── 5. Model Architecture & Training
+│ ├── 5.1. Define input shape and number of output classes (8 commands)
+│ ├── 5.2. Adapt Normalization layer on training spectrograms
+│ ├── 5.3. Build CNN: Resizing → Conv2D → MaxPooling2D → Dropout → Flatten → Dense
+│ ├── 5.4. Compile model with Adam optimizer & SparseCategoricalCrossentropy (from_logits=True)
+│ └── 5.5. Train with EarlyStopping (patience=2) to prevent overfitting
+│
+├── 6. Model Evaluation & Analysis
+│ ├── 6.1. Plot training/validation loss and accuracy curves
+│ ├── 6.2. Evaluate final performance on held-out test set
+│ ├── 6.3. Extract predicted and true labels for detailed analysis
+│ └── 6.4. Generate confusion matrix to identify misclassification patterns
+│
+└── 7. Real-Time Inference & Interactive Demo
+    ├── 7.1. Predict on dataset samples: display probabilities + play audio
+    ├── 7.2. Capture live audio from microphone using PyAudio (1-sec @ 16kHz)
+    ├── 7.3. Save recording as WAV file
+    ├── 7.4. Run inference on live input and visualize class probabilities
+    └── 7.5. Save trained weights (model.h5) for future deployment
+ 
